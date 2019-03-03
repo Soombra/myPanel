@@ -4,17 +4,12 @@ const webpackConfig = require('../webpack/webpack.dev.conf')
 const webpackBaseConfig = require('../webpack/webpack.base.conf')
 const webpackDevMiddleware = require('webpack-dev-middleware')
 const webpackHotMiddleware = require('webpack-hot-middleware')
-const qiniu = require('qiniu')
-const {qiniu_AccessKey, qiniu_SecretKey, port} = require('../config')
+const controllers = require('./controllers')
+const {port} = require('../config')
 
 const app = express()
 
-app.get('/get_token', (req, res, next) => {
-  let mac = new qiniu.auth.digest.Mac(qiniu_AccessKey, qiniu_SecretKey)
-  let putPolicy = new qiniu.rs.PutPolicy({scope: 'sombra'})
-  var uploadToken = putPolicy.uploadToken(mac)
-  res.send({token: uploadToken})
-})
+controllers(app)
 
 const isDev = process.env.NODE_ENV !== 'production'
 if (isDev) {
