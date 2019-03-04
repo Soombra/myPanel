@@ -4,12 +4,21 @@ const webpackConfig = require('../webpack/webpack.dev.conf')
 const webpackBaseConfig = require('../webpack/webpack.base.conf')
 const webpackDevMiddleware = require('webpack-dev-middleware')
 const webpackHotMiddleware = require('webpack-hot-middleware')
-const controllers = require('./controllers')
+const bodyParser = require('body-parser')
+const apis = require('./apis')
 const {port} = require('../config')
+const mongoose = require('mongoose');
+const url = "mongodb://localhost:27017/mySpace";
+
+let connection = mongoose.connection
+connection.once('open', function () {
+  console.log('数据库链接成功')
+})
+mongoose.connect(url)
 
 const app = express()
-
-controllers(app)
+app.use(bodyParser())
+apis(app)
 
 const isDev = process.env.NODE_ENV !== 'production'
 if (isDev) {
