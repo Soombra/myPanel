@@ -1,12 +1,17 @@
 import Router from 'vue-router'
 import Vue from 'vue'
-import articleDetails from '../pages/articleDetails'
+import article from '../pages/article'
+import list from '../pages/front-end-list'
 Vue.use(Router)
 
 export default new Router({
   routes: [{
     path: '/',
-    name: 'articleDetails',
-    component: articleDetails
+    name: 'list',
+    component: list
+  },{
+    path: '/article/:id',
+    name: 'article',
+    component: article
   }]
 })

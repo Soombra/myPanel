@@ -14,7 +14,7 @@
 <script>
   import E from 'wangeditor'
   import * as Qiniu from 'qiniu-js'
-  import axios from 'axios'
+  import request from '../request'
   import {createArticle} from '../apis'
   import {qiniu_baseUrl} from '../../config'
 
@@ -34,6 +34,18 @@
         }).then (() => {
           location.href = '/'
         })
+      },
+      getArticle (editor) {
+        const id = this.$route.params.id
+        if(id !== 'new'){
+          request.get(`/article/${id}`).then(({data}) => {
+            if (data) {
+              this.title = data.title
+              this.content = data.content
+              editor.txt.html(data.content)
+            }
+          })
+        }
       }
     },
     mounted () {
@@ -43,7 +55,7 @@
       }
       editor.customConfig.customUploadImg = async function (files, insert) {
         try {
-          const {data} = await axios.get ('/get_qiniu_token')
+          const {data} = await request.get ('/get_qiniu_token')
           if (data.token) {
             let observable = Qiniu.upload (files[0], files[0].name, data.token, {}, {})
             let subscription = observable.subscribe ({
@@ -64,6 +76,8 @@
         }
       }
       editor.create ()
+
+      this.getArticle(editor)
     }
   }
 </script>

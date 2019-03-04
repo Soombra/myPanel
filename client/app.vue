@@ -26,5 +26,13 @@
       padding-left: 8px;
       outline: none;
     }
+    .router-link{
+      color: #333;
+      text-decoration: none;
+      &:hover{
+        color: #000;
+        text-decoration: none;
+      }
+    }
   }
 </style>

@@ -9,6 +9,15 @@ const controllers = {
     var uploadToken = putPolicy.uploadToken(mac)
     res.send({token: uploadToken})
   },
+  queryArticles (req, res, next) {
+    articleModel.find((err, articles) => {
+      if (err) {
+        console.log(err)
+        return
+      }
+      res.send(articles)
+    })
+  },
   createArticle (req, res, next) {
     const {body: {title, content}} = req
     console.log(title, content)
@@ -24,6 +33,16 @@ const controllers = {
     } else {
       res.status(400).send('Bad Request');
     }
+  },
+  articleDetails (req, res) {
+    let _id = req.params.id
+    articleModel.findOne({_id}, (err, article) => {
+      if(err){
+        console.log(err)
+        return
+      }
+      res.send(article)
+    })
   }
 }
 
