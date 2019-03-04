@@ -1,8 +1,92 @@
-const {qiniu_AccessKey, qiniu_SecretKey, port} = require('../../config')
+const {qiniu_AccessKey, qiniu_SecretKey, port, token_secret} = require('../../config')
+const jwt = require('jsonwebtoken')
 const qiniu = require('qiniu')
-const {articleModel} = require('../models')
+const {articleModel, authModel} = require('../models')
 
 const controllers = {
+  login (req, res, token) {
+    const {username, passward} = req.body
+    if(username && password) {
+      authModel.findOne({username, password}, (err, user) =>{
+        if(err) {
+          console.log(err)
+          return 
+        }
+        if(user){
+          let payload = {
+            username,
+            admin: true
+          }
+          let token = jwt.sign(payload, token_secret)
+          res.cookie('token', token)
+          res.send('登陆成功')
+        } else {
+          res.status(403).send('未找到用户')
+        }
+      })
+    } else {
+      res.status(400).send('参数错误')
+    }
+  },
+  register (req, res, token) {
+    const {username, passward} = req.body
+    if(username && password) {
+      authModel.findOne({username}, (err, user) {
+        if(err){
+          console.log(err)
+          return
+        }
+        if(!user){
+          let user = new authModel({username, password})
+          user.save((err, user) => {
+            if (err) {
+              console.log(err)
+              return
+            }
+            if(user){
+              let payload = {
+                username,
+                admin: true
+              }
+              let token = jwt.sign(payload, token_secret)
+              res.cookie('token', token)
+              res.send('登陆成功')
+            }
+          })
+        } else {
+          res.status(400).send('该用户名已注册')
+        }
+      })
+    } else {
+      res.status(400).send('参数错误')
+    }
+  },
+  checkAuth (req, res, next) {
+    const token = req.cookies
+    jwt.verify(token, token_secret, (err, decoded) => {
+      if(err){
+        console.log(err)
+        return
+      }
+      if(decoded && decoded.name){
+        authModel.findOne({username: decoded.name}, (err, user) => {
+          if(err){
+            console.log(err)
+            return
+          }
+          if(user){
+            next()
+          } else {
+            res.clearCookie('token')
+            res.status(403).send('未找到用户')
+          }
+        })
+      } else {
+        res.clearCookie('token')
+        res.status(403).send('未找到用户')
+      }
+    })
+  }
   getQiniuToken (req, res, next) {
     let mac = new qiniu.auth.digest.Mac(qiniu_AccessKey, qiniu_SecretKey)
     let putPolicy = new qiniu.rs.PutPolicy({scope: 'sombra'})

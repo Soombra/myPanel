@@ -5,6 +5,7 @@ const webpackBaseConfig = require('../webpack/webpack.base.conf')
 const webpackDevMiddleware = require('webpack-dev-middleware')
 const webpackHotMiddleware = require('webpack-hot-middleware')
 const bodyParser = require('body-parser')
+const cookieParser = require('cookie-parser')
 const apis = require('./apis')
 const {port} = require('../config')
 const mongoose = require('mongoose');
@@ -18,6 +19,7 @@ mongoose.connect(url)
 
 const app = express()
 app.use(bodyParser())
+app.use(cookieParser())
 apis(app)
 
 const isDev = process.env.NODE_ENV !== 'production'
