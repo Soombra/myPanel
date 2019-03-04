@@ -32,7 +32,7 @@
           title: this.title,
           content: this.editorContent
         }).then (() => {
-          console.log ('请求成功')
+          location.href = '/'
         })
       }
     },

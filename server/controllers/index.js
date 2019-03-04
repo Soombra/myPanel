@@ -1,6 +1,6 @@
 const {qiniu_AccessKey, qiniu_SecretKey, port} = require('../../config')
 const qiniu = require('qiniu')
-const articleModel = require('../models')
+const {articleModel} = require('../models')
 
 const controllers = {
   getQiniuToken (req, res, next) {
@@ -11,13 +11,14 @@ const controllers = {
   },
   createArticle (req, res, next) {
     const {body: {title, content}} = req
+    console.log(title, content)
     if(title && content){
       let article = new articleModel({title, content})
       article.save(function(err, article){
         if(err){
           console.log(err)
         } else {
-          res.send('ok')
+          res.send(article)
         }
       })
     } else {

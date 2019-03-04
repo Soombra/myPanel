@@ -4,4 +4,6 @@ const articleSchema = mongoose.Schema({
   content: String
 })
 
-module.export = articleSchema
+module.exports = {
+  articleSchema
+}
