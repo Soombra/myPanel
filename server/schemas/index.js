@@ -3,12 +3,12 @@ const articleSchema = mongoose.Schema({
   title: String,
   content: String
 })
-const authSchema = mongoose.Schema({
+const userSchema = mongoose.Schema({
   username: String,
   password: String
 })
 
 module.exports = {
   articleSchema,
-  authSchema
+  userSchema
 }
