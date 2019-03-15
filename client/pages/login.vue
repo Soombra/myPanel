@@ -20,7 +20,7 @@
       handleSubmit () {
         const {username, password} = this
         request.post('/login', {username, password}).then(() => {
-          // location.href = '/'
+          location.href = '/'
         })
       }
     }
