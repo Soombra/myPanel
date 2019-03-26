@@ -16,7 +16,7 @@
   import E from 'wangeditor'
   import * as Qiniu from 'qiniu-js'
   import request from '../../request'
-  import {createArticle} from '../../apis'
+  import { travel } from '../../apis'
   import {qiniu_baseUrl} from '../../../config'
 
   export default {
@@ -30,21 +30,22 @@
     },
     methods: {
       handleSubmit () {
-        createArticle ({
+        travel.createArticle ({
           title: this.title,
           content: this.editorContent
         }).then (() => {
-          location.href = '/'
+          this.$router.push('/travel-list')
+        }).catch(err => {
         })
       },
       getArticle (editor) {
         const id = this.$route.params.id
         if(id !== 'new'){
           this.isNew = false
-          request.get(`/article/${id}`).then(({data}) => {
+          travel.getArticle(id).then(({data}) => {
             if (data) {
               this.title = data.title
-              this.content = data.content
+              this.editorContent = data.content
               editor.txt.html(data.content)
             }
           })

@@ -48,6 +48,7 @@
       color: #fff;
       padding: 5px 10px;
       border-radius: 5px;
+      cursor: pointer;
     }
     .article-head{
       font-size: 24px;

@@ -14,7 +14,7 @@
   </div>
 </template>
 <script>
-  import request from '../../request'
+  import {frontEnd} from '../../apis'
 
   export default {
     data () {
@@ -23,7 +23,7 @@
       }
     },
     mounted () {
-      request.get ('/articles').then (({data}) => {
+      frontEnd.queryArticles().then (({data}) => {
         this.list = data
       })
     }
