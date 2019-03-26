@@ -1,8 +1,5 @@
 import request from '../request'
 
-const createArticle = function (params) {
-  return request.post ('/front-end/article', params)
-}
 export const frontEnd = {
   createArticle (params) {
     return request.post ('/front-end/article', params)
