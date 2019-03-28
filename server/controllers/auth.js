@@ -2,7 +2,7 @@ const {qiniu_AccessKey, qiniu_SecretKey, port, token_secret} = require ('../../c
 const jwt = require ('jsonwebtoken')
 const qiniu = require ('qiniu')
 const moment = require ('moment')
-const {frontArticleModel, travelArticleModel, essayArticleModel, userModel} = require ('../models')
+const {userModel} = require ('../models')
 
 const controllers = {
   login (req, res, next) {

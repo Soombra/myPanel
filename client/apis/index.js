@@ -4,8 +4,8 @@ export const frontEnd = {
   createArticle (params) {
     return request.post ('/front-end/article', params)
   },
-  queryArticles () {
-    return request.get('/front-end/articles')
+  queryArticles (params) {
+    return request.get('/front-end/articles', {params})
   },
   getArticle (id) {
     return request.get(`/front-end/article/${id}`)

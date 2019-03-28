@@ -28,9 +28,9 @@
           label="操作">
         <template slot-scope="scope">
           <router-link target='_blank' :to="`/front-end/article/${scope.row._id}`" class="option-btn">编辑</router-link>
-          <div class="option-btn" @click="publish(scope.row._id)" v-if="scope.row.is_published">取消发布</div>
-          <div class="option-btn" @click="unpublish(scope.row._id)" v-else>发布</div>
-          <div class="option-btn" @click="handleDelete(scope.row._id)">删除</div>
+          <div class="option-btn" @click="handleUnpublish(scope.row)" v-if="scope.row.status === 'published'">取消发布</div>
+          <div class="option-btn" @click="handlePublish(scope.row)" v-else>发布</div>
+          <div class="option-btn" @click="handleDelete(scope.row)">删除</div>
         </template>
       </el-table-column>
     </el-table>
@@ -38,6 +38,7 @@
       <el-pagination
           background
           layout="prev, pager, next"
+          :page-size="10"
           @current-change = 'pageChange'
           :total="totalCount">
       </el-pagination>
@@ -60,21 +61,71 @@
     methods: {
       pageChange (page) {
         this.page = page
+        this.queryArticles()
       },
-      publish (id) {
-
+      handlePublish (article) {
+        this.$confirm('确定要发布文章吗？', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+          this.publishArticle(article)
+        }).catch(err => {})
       },
-      unpublish (id) {
-
+      handleUnpublish (article) {
+        this.$confirm('确定要将文章下线吗？', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+          this.unPublishArticle(article)
+        }).catch(err => {})
       },
-      handleDelete (id) {
-
+      handleDelete (article) {
+        this.$confirm('删除文章不可恢复，确定要删除吗？', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+          this.deleteArticle(article)
+        }).catch(err => {})
+      },
+      publishArticle (article) {
+        frontEnd.publishArticle(article._id).then(() => {
+          article.status = 'published'
+          this.$message.success('发布成功')
+        }).catch(err => {
+          console.log(err)
+          this.$message.error('操作失败')
+        })
+      },
+      unPublishArticle (article) {
+        frontEnd.unPublishArticle(article._id).then(() => {
+          article.status = 'offline'
+          this.$message.success('取消发布成功')
+        }).catch(err => {
+          console.log(err)
+          this.$message.error('操作失败')
+        })
+      },
+      deleteArticle (article) {
+        frontEnd.deleteArticle(article._id).then(() => {
+          this.$message.success('删除成功')
+          location.reload()
+        }).catch(err => {
+          console.log(err)
+          this.$message.error('操作失败')
+        })
+      },
+      queryArticles () {
+        frontEnd.queryArticles({page: this.page}).then (({data, headers}) => {
+          this.list = data
+          this.totalCount = +headers['x-total-count']
+        })
       }
     },
     mounted () {
-      frontEnd.queryArticles().then (({data}) => {
-        this.list = data
-      })
+      this.queryArticles()
     }
   }
 </script>

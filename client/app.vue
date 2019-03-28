@@ -16,14 +16,6 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     color: #2c3e50;
-    input{
-      min-width: 300px;
-      border: 1px solid #ddd;
-      border-radius: 4px;
-      line-height: 24px;
-      padding-left: 8px;
-      outline: none;
-    }
     .list-page-head{
       display: flex;
       justify-content: space-between;
