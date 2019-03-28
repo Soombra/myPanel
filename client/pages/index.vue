@@ -57,6 +57,10 @@
       padding-bottom: 30px;
       .link{
         margin-top: 30px;
+        &:hover{
+          color: #000;
+          text-decoration: none;
+        }
       }
     }
     .content{

@@ -1,6 +1,7 @@
 const {qiniu_AccessKey, qiniu_SecretKey, port, token_secret} = require ('../../config')
 const jwt = require ('jsonwebtoken')
 const qiniu = require ('qiniu')
+const moment = require ('moment')
 const {frontArticleModel, travelArticleModel, essayArticleModel, userModel} = require ('../models')
 
 const controllers = {
@@ -65,7 +66,7 @@ const controllers = {
   },
   checkAuth (req, res, next) {
     const {token} = req.cookies
-    if(token){
+    if (token) {
       jwt.verify (token, token_secret, (err, decoded) => {
         if (err) {
           console.log (err)
@@ -98,111 +99,6 @@ const controllers = {
     let putPolicy = new qiniu.rs.PutPolicy ({scope: 'sombra'})
     var uploadToken = putPolicy.uploadToken (mac)
     res.send ({token: uploadToken})
-  },
-  queryFrontArticles (req, res, next) {
-    frontArticleModel.find ((err, articles) => {
-      if (err) {
-        console.log (err)
-        return
-      }
-      res.send (articles)
-    })
-  },
-  createFrontArticle (req, res, next) {
-    const {body: {title, content}} = req
-    console.log (title, content)
-    if (title && content) {
-      let article = new frontArticleModel ({title, content})
-      article.save (function (err, article) {
-        if (err) {
-          console.log (err)
-        } else {
-          res.send (article)
-        }
-      })
-    } else {
-      res.status (400).send ('Bad Request');
-    }
-  },
-  frontArticleDetails (req, res) {
-    let _id = req.params.id
-    frontArticleModel.findOne ({_id}, (err, article) => {
-      if (err) {
-        console.log (err)
-        return
-      }
-      res.send (article)
-    })
-  },
-  queryTravelArticles (req, res, next) {
-    travelArticleModel.find ((err, articles) => {
-      if (err) {
-        console.log (err)
-        return
-      }
-      res.send (articles)
-    })
-  },
-  createTravelArticle (req, res, next) {
-    const {body: {title, content}} = req
-    console.log (title, content)
-    if (title && content) {
-      let article = new travelArticleModel ({title, content})
-      article.save (function (err, article) {
-        if (err) {
-          console.log (err)
-        } else {
-          res.send (article)
-        }
-      })
-    } else {
-      res.status (400).send ('Bad Request');
-    }
-  },
-  travelArticleDetails (req, res) {
-    let _id = req.params.id
-    travelArticleModel.findOne ({_id}, (err, article) => {
-      if (err) {
-        console.log (err)
-        return
-      }
-      res.send (article)
-    })
-  },
-  queryEssayArticles (req, res, next) {
-    essayArticleModel.find ((err, articles) => {
-      if (err) {
-        console.log (err)
-        return
-      }
-      res.send (articles)
-    })
-  },
-  createEssayArticle (req, res, next) {
-    const {body: {title, content}} = req
-    console.log (title, content)
-    if (title && content) {
-      let article = new essayArticleModel ({title, content})
-      article.save (function (err, article) {
-        if (err) {
-          console.log (err)
-        } else {
-          res.send (article)
-        }
-      })
-    } else {
-      res.status (400).send ('Bad Request');
-    }
-  },
-  essayArticleDetails (req, res) {
-    let _id = req.params.id
-    essayArticleModel.findOne ({_id}, (err, article) => {
-      if (err) {
-        console.log (err)
-        return
-      }
-      res.send (article)
-    })
   }
 }
 

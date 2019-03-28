@@ -24,15 +24,7 @@
       padding-left: 8px;
       outline: none;
     }
-    a{
-      color: #333;
-      text-decoration: none;
-      &:hover{
-        color: #000;
-        text-decoration: none;
-      }
-    }
-    .list-head{
+    .list-page-head{
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -44,6 +36,7 @@
       border-bottom: 1px solid #eee;
     }
     .option-btn{
+      display: inline-block;
       background-color: coral;
       color: #fff;
       padding: 5px 10px;
@@ -61,5 +54,37 @@
       display: flex;
       justify-content: center;
     }
+    .list-item{
+      display: flex;
+      justify-content: space-between;
+      &.head{
+        background-color: #eee;
+        color: #000;
+        font-weight: bold;
+        text-align: center;
+      }
+      .title{
+        width: 30%;
+      }
+      .options{
+        width: 20%;
+        .option-btn{
+          margin-left: 10px;
+        }
+      }
+    }
+    .flex{
+      display: flex;
+      align-items: center;
+    }
+    .pagination-wrapper{
+      display: flex;
+      justify-content: center;
+      margin-top: 30px;
+    }
+  }
+  a{
+    color: #333;
+    text-decoration: none;
   }
 </style>

@@ -12,6 +12,15 @@ export const frontEnd = {
   },
   modifyArticle (id, params) {
     return request.put(`/front-end/article/${id}`, params)
+  },
+  publishArticle (id) {
+    return request.put(`/front-end/article/${id}/publish`)
+  },
+  unPublishArticle (id) {
+    return request.put(`/front-end/article/${id}/unpublish`)
+  },
+  deleteArticle (id) {
+    return request.delete(`/front-end/article/${id}`)
   }
 }
 export const travel = {

@@ -1,7 +1,15 @@
 const mongoose = require('mongoose')
 const articleSchema = mongoose.Schema({
   title: String,
-  content: String
+  content: String,
+  image: String,
+  date_published: Date,
+  status: {
+    type: String,
+    default: 'draft'
+  }
+}, {
+  timestamps: { createdAt: 'date_created', updatedAt: 'date_updated' }
 })
 const userSchema = mongoose.Schema({
   username: String,
