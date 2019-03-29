@@ -4,6 +4,7 @@ const articleSchema = mongoose.Schema({
   content: String,
   image: String,
   date_published: Date,
+  abstract: String,
   status: {
     type: String,
     default: 'draft'

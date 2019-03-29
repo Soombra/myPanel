@@ -30,6 +30,9 @@
   .login{
     width: 380px;
     margin: 200px auto 0;
+    padding: 20px 30px 0 30px;
+    border: 1px solid #eee;
+    border-radius: 15px;
     .title{
       font-size: 24px;
       font-weight: bold;
@@ -47,7 +50,7 @@
     .submit{
       width: 60px;
       height: 30px;
-      margin: 50px auto;
+      margin: 40px auto;
       background-color: coral;
       display: flex;
       justify-content: center;

@@ -6,6 +6,8 @@ request.interceptors.response.use(res => {
 }, err => {
   if(err.response.status === 403) {
     location.href = '/login'
+  } else {
+    return Promise.reject(err);
   }
 })
 export default request

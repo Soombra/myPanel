@@ -4,7 +4,7 @@
     <div class="side-bar">
       <router-link class="link" v-for="(item, index) in links" :to="item.url" :key="index">{{item.name}}</router-link>
     </div>
-    <div class="content">
+    <div class="index-content">
       <router-view></router-view>
     </div>
   </div>
@@ -17,10 +17,10 @@
           {
             name: '前端',
             url: '/front-end-list'
-          },{
+          }, {
             name: '游记',
             url: '/travel-list'
-          },{
+          }, {
             name: '随笔',
             url: '/essay-list'
           }
@@ -29,10 +29,11 @@
     }
   }
 </script>
-<style lang="scss" scoped>
-  .index{
+<style lang="scss">
+  .index {
     padding-top: 50px;
-    .panel-head{
+
+    .panel-head {
       height: 50px;
       position: fixed;
       top: 0;
@@ -44,7 +45,8 @@
       background-color: #eee;
       width: 100%;
     }
-    .side-bar{
+
+    .side-bar {
       width: 100px;
       display: flex;
       flex-direction: column;
@@ -55,17 +57,60 @@
       background-color: #fff;
       border: 1px solid #eee;
       padding-bottom: 30px;
-      .link{
+
+      .link {
         margin-top: 30px;
-        &:hover{
+
+        &:hover {
           color: #000;
           text-decoration: none;
         }
       }
     }
-    .content{
+
+    .index-content {
+      margin-top: 20px;
       margin-left: 150px;
       max-width: 980px;
+
+      .content-row {
+        color: #333;
+
+        display: flex;
+        margin-bottom: 20px;
+
+        input[type=text] {
+          width: 600px;
+          border: 1px solid #ddd;
+          border-radius: 4px;
+          line-height: 24px;
+          padding-left: 8px;
+          outline: none;
+        }
+
+        textarea {
+          width: 600px;
+          border: 1px solid #ddd;
+          border-radius: 4px;
+          line-height: 24px;
+          padding-left: 8px;
+          outline: none;
+        }
+        .left {
+          width: 10%;
+        }
+
+        .right {
+          width: 90%;
+        }
+      }
+
+      .editor {
+        .w-e-text-container {
+          min-height: 500px;
+          height: auto;
+        }
+      }
     }
   }
 </style>

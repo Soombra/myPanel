@@ -11,6 +11,9 @@
 </script>
 
 <style lang="scss">
+  body{
+    margin: 0px;
+  }
   #app {
     font-family: 'Avenir', Helvetica, Arial, sans-serif;
     -webkit-font-smoothing: antialiased;
@@ -37,7 +40,7 @@
     }
     .article-head{
       font-size: 24px;
-      margin-bottom: 50px;
+      margin-bottom: 30px;
       font-weight: bold;
     }
     .bottom-options {

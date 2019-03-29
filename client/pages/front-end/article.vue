@@ -1,14 +1,31 @@
 <template>
-  <div id="articleDetails">
+  <div class="articleDetails">
     <div class="article-head">{{isNew ? '创建文章' : '修改文章' }}</div>
-    <div class="title">标题: <input type="text" v-model="article.title"></div>
-    <div class="image">封面图:
-      <input type="file" @change="handleSelectImage"/>
-      <image v-if="article.image" :src="article.image"></image>
+    <div class="article-content">
+      <div class="content-row">
+        <div class="left">标题:</div>
+        <div class="right">
+          <input type="text" v-model="article.title"></div>
+      </div>
+      <div class="content-row">
+        <div class="left">摘要:</div>
+        <div class="right">
+          <textarea rows="3" type="text" v-model="article.abstract"/>
+        </div>
+      </div>
+      <div class="content-row">
+        <div class="left">封面图:</div>
+        <div class="right">
+          <input type="file" @change="handleSelectImage"/>
+          <image v-if="article.image" :src="article.image"></image>
+        </div>
+      </div>
     </div>
-    <div class="content">
-      正文:
-      <div ref="editor" class="editor"></div>x
+    <div class="content-row">
+      <div class="left">正文:</div>
+      <div class="right">
+        <div ref="editor" class="editor"></div>
+      </div>
     </div>
     <div class="bottom-options">
       <div class="option-btn" @click="handleSubmit">提交</div>
@@ -31,7 +48,8 @@
         article: {
           title: '',
           content: '',
-          image: ''
+          image: '',
+          abstract: ''
         },
         id: ''
       }
@@ -44,7 +62,7 @@
           this.modifyArticle ()
         }
       },
-     async handleSelectImage (e) {
+      async handleSelectImage (e) {
         const {files} = e.target
         if (files.length) {
           const {data} = await request.get ('/get_qiniu_token')
@@ -67,6 +85,7 @@
       },
       createArticle () {
         frontEnd.createArticle (this.article).then (() => {
+          console.log('成功回调')
           this.$router.push ('/front-end-list')
         }).catch (err => {
           console.log (err)
@@ -132,30 +151,3 @@
     }
   }
 </script>
-
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style lang="scss">
-  #articleDetails {
-    .title {
-      margin-bottom: 20px;
-
-      input {
-        min-width: 300px;
-        border: 1px solid #ddd;
-        border-radius: 4px;
-        line-height: 24px;
-        padding-left: 8px;
-        outline: none;
-      }
-    }
-
-    .editor {
-      width: 980px;
-
-      .w-e-text-container {
-        min-height: 500px;
-        height: auto;
-      }
-    }
-  }
-</style>

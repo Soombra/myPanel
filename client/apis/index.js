@@ -27,28 +27,46 @@ export const travel = {
   createArticle (params) {
     return request.post ('/travel/article', params)
   },
-  queryArticles () {
-    return request.get('/travel/articles')
+  queryArticles (params) {
+    return request.get('/travel/articles', {params})
   },
   getArticle (id) {
     return request.get(`/travel/article/${id}`)
   },
   modifyArticle (id, params) {
     return request.put(`/travel/article/${id}`, params)
+  },
+  publishArticle (id) {
+    return request.put(`/travel/article/${id}/publish`)
+  },
+  unPublishArticle (id) {
+    return request.put(`/travel/article/${id}/unpublish`)
+  },
+  deleteArticle (id) {
+    return request.delete(`/travel/article/${id}`)
   }
 }
 export const essay = {
   createArticle (params) {
     return request.post ('/essay/article', params)
   },
-  queryArticles () {
-    return request.get('/essay/articles')
+  queryArticles (params) {
+    return request.get('/essay/articles', {params})
   },
   getArticle (id) {
     return request.get(`/essay/article/${id}`)
   },
   modifyArticle (id, params) {
     return request.put(`/essay/article/${id}`, params)
+  },
+  publishArticle (id) {
+    return request.put(`/essay/article/${id}/publish`)
+  },
+  unPublishArticle (id) {
+    return request.put(`/essay/article/${id}/unpublish`)
+  },
+  deleteArticle (id) {
+    return request.delete(`/essay/article/${id}`)
   }
 }
 

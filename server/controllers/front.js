@@ -7,8 +7,7 @@ const controllers = {
     const limit = req.query.per_page || 10
     try {
       const totalCount = await frontArticleModel.count()
-      const articles = await frontArticleModel.find ({}, null, {sort:{date_created: -1}, limit, skip: limit * (page - 1)})
-      console.log(articles)
+      const articles = await frontArticleModel.find ({}, 'title date_created date_published status', {sort:{date_created: -1}, limit, skip: limit * (page - 1)})
       res.set('x-total-count', totalCount).send(articles)
     } catch (e) {
       console.log(e)
@@ -17,10 +16,9 @@ const controllers = {
 
   },
   createArticle (req, res, next) {
-    const {body: {title, content}} = req
-    console.log (req.body)
+    const {body: {title, abstract, content}} = req
     if (title && content) {
-      let article = new frontArticleModel ({title, content})
+      let article = new frontArticleModel ({title, abstract, content})
       article.save (function (err, article) {
         if (err) {
           console.log (err)
@@ -40,19 +38,20 @@ const controllers = {
         console.log (err)
         return
       }
-      const {date_created, date_updated, title, content, image} = article
+      const {date_created, date_updated, title, abstract, content, image} = article
       res.send ({
         date_created: moment (date_created).format ('YYYY-MM-DD HH:mm:ss'),
         date_updated: moment (date_updated).format ('YYYY-MM-DD HH:mm:ss'),
         title,
         content,
-        image
+        image,
+        abstract
       })
     })
   },
   modifyArticle (req, res, next) {
-    const {body: {title, content, image}, params: {id}} = req
-    frontArticleModel.update({_id: id}, {title, content, image}, (err, article) => {
+    const {body: {title, abstract, content, image}, params: {id}} = req
+    frontArticleModel.update({_id: id}, {title, abstract, content, image}, (err, article) => {
       if(err){
         console.log (err)
         res.status(400).send('Bad Request')

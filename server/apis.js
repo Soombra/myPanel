@@ -16,8 +16,18 @@ const apis = function (app) {
   app.get('/travel/articles', authController.checkAuth, travelController.queryArticles)
   app.post ('/travel/article', authController.checkAuth, travelController.createArticle)
   app.get ('/travel/article/:id', authController.checkAuth, travelController.articleDetails)
+  app.put ('/travel/article/:id', authController.checkAuth, travelController.modifyArticle)
+  app.delete ('/travel/article/:id', authController.checkAuth, travelController.deleteArticle)
+  app.put ('/travel/article/:id/publish', authController.checkAuth, travelController.publishArticle)
+  app.put ('/travel/article/:id/unpublish', authController.checkAuth, travelController.unpublishArticle)
+
   app.get('/essay/articles', authController.checkAuth, essayController.queryArticles)
   app.post ('/essay/article', authController.checkAuth, essayController.createArticle)
   app.get ('/essay/article/:id', authController.checkAuth, essayController.articleDetails)
+  app.put ('/essay/article/:id', authController.checkAuth, essayController.modifyArticle)
+  app.delete ('/essay/article/:id', authController.checkAuth, essayController.deleteArticle)
+  app.put ('/essay/article/:id/publish', authController.checkAuth, essayController.publishArticle)
+  app.put ('/essay/article/:id/unpublish', authController.checkAuth, essayController.unpublishArticle)
+
 }
 module.exports = apis
