@@ -73,18 +73,19 @@ const controllers = {
           return
         }
         if (decoded && decoded.username) {
-          userModel.findOne ({username: decoded.username}, (err, user) => {
-            if (err) {
-              console.log (err)
-              return
-            }
-            if (user) {
-              next ()
-            } else {
-              res.clearCookie ('token')
-              res.status (403).send ('未找到用户')
-            }
-          })
+          // userModel.findOne ({username: decoded.username}, (err, user) => {
+          //   if (err) {
+          //     console.log (err)
+          //     return
+          //   }
+          //   if (user) {
+          //     next ()
+          //   } else {
+          //     res.clearCookie ('token')
+          //     res.status (403).send ('未找到用户')
+          //   }
+          // })
+          next ()
         } else {
           res.clearCookie ('token')
           res.status (403).send ('未找到用户')
