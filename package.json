@@ -5,8 +5,9 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "NODE_ENV=production node webpack/build.js && NODE_ENV=production node server/app",
-    "start": "nodemon server/app"
+    "build": "NODE_ENV=production pm2 start webpack/build.js -f && NODE_ENV=production pm2 start server/app.js -f",
+    "start": "pm2 start server/app.js -f",
+    "stop": "pm2 stop server/app.js && pm2 stop webpack/build.js && pm2 stop server/app.js"
   },
   "author": "soombra",
   "license": "ISC",
