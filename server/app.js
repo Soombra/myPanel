@@ -16,7 +16,7 @@ let connection = mongoose.connection
 connection.once('open', function () {
   console.log('数据库链接成功')
 })
-mongoose.connect(url)
+mongoose.connect(url, {useNewUrlParser: true})
 
 const app = express()
 app.use(bodyParser())

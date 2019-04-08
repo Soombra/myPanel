@@ -6,7 +6,7 @@ const controllers = {
     const page = req.query.page || 1
     const limit = req.query.per_page || 10
     try {
-      const totalCount = await travelArticleModel.count()
+      const totalCount = await travelArticleModel.countDocuments()
       const articles = await travelArticleModel.find ({}, 'title date_created date_published status', {sort:{date_created: -1}, limit, skip: limit * (page - 1)})
       res.set('x-total-count', totalCount).send(articles)
     } catch (e) {
