@@ -17,7 +17,7 @@
         <div class="left">封面图:</div>
         <div class="right">
           <input type="file" @change="handleSelectImage"/>
-          <image v-if="article.image" :src="article.image"></image>
+          <img v-if="article.image" :src="article.image"/>
         </div>
       </div>
     </div>
