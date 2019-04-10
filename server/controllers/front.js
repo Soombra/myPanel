@@ -16,9 +16,9 @@ const controllers = {
 
   },
   createArticle (req, res, next) {
-    const {body: {title, abstract, content}} = req
+    const {body: {title, abstract, content, image}} = req
     if (title && content) {
-      let article = new frontArticleModel ({title, abstract, content})
+      let article = new frontArticleModel ({title, abstract, content, image})
       article.save (function (err, article) {
         if (err) {
           console.log (err)
