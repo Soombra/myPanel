@@ -20,6 +20,17 @@
           <img v-if="article.image" :src="article.image"/>
         </div>
       </div>
+      <div class="content-row">
+        <div class="left">标签:</div>
+        <div class="right">
+          <span class="tag" v-for="(item, index) in tags" :key="index">{{item}}</span>
+          <input style="width: 100px" type="text" v-model="newTag">
+          <span class="add-tag" @click="addTag">
+            添加+
+          </span>
+          <span class="clear-tag" @click="clearTags">清空</span>
+        </div>
+      </div>
     </div>
     <div class="content-row">
       <div class="left">正文:</div>
@@ -49,12 +60,26 @@
           title: '',
           content: '',
           image: '',
-          abstract: ''
+          abstract: '',
+          tags: []
         },
-        id: ''
+        id: '',
+        newTag: '',
+        tags: []
       }
     },
     methods: {
+      addTag () {
+        if(this.newTag){
+          this.tags.push(this.newTag)
+          this.newTag = ''
+        }
+      },
+      clearTags () {
+        if(confirm('确定清空所有标签吗？')){
+          this.tags = []
+        }
+      },
       handleSubmit () {
         if (this.isNew) {
           this.createArticle ()
@@ -84,7 +109,7 @@
         }
       },
       createArticle () {
-        travel.createArticle (this.article).then (() => {
+        travel.createArticle ({...this.article, tags: this.tags}).then (() => {
           console.log('成功回调')
           this.$router.push ('/front-end-list')
         }).catch (err => {
@@ -92,7 +117,7 @@
         })
       },
       modifyArticle () {
-        travel.modifyArticle (this.id, this.article).then (() => {
+        travel.modifyArticle (this.id, {...this.article, tags: this.tags}).then (() => {
           this.$message ({
             message: '修改成功',
             type: 'success'
@@ -112,6 +137,7 @@
           travel.getArticle (id).then (({data}) => {
             if (data) {
               this.article = data
+              this.tags = data.tags
               editor.txt.html (data.content)
             }
           })

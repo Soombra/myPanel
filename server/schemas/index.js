@@ -5,6 +5,10 @@ const articleSchema = mongoose.Schema({
   image: String,
   date_published: Date,
   abstract: String,
+  tags: {
+    type: Array,
+    default: []
+  },
   status: {
     type: String,
     default: 'draft'

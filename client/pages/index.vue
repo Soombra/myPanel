@@ -103,6 +103,21 @@
         .right {
           width: 90%;
         }
+        .tag, .add-tag, .clear-tag{
+          padding: 3px 7px;
+          border-radius: 10px;
+          color: #fff;
+          background-color: coral;
+          font-size: 14px;
+          cursor: pointer;
+          margin-right: 10px;
+        }
+        .add-tag{
+          background-color: green;
+        }
+        .clear-tag{
+          background-color: red;
+        }
       }
 
       .editor {
