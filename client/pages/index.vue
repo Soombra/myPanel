@@ -2,7 +2,7 @@
   <div class="index">
     <div class="panel-head">个人空间管理后台</div>
     <div class="side-bar">
-      <router-link class="link" v-for="(item, index) in links" :to="item.url" :key="index">{{item.name}}</router-link>
+      <router-link @click.native="currentPath = item.url" :class="['link', currentPath === item.url && 'active']" v-for="(item, index) in links" :to="item.url" :key="index">{{item.name}}</router-link>
     </div>
     <div class="index-content">
       <router-view></router-view>
@@ -13,6 +13,7 @@
   export default {
     data () {
       return {
+        currentPath: '',
         links: [
           {
             name: '前端',
@@ -25,6 +26,13 @@
             url: '/essay-list'
           }
         ]
+      }
+    },
+    mounted () {
+      if(this.$route.path === '/'){
+        this.currentPath = '/front-end-list'
+      } else {
+        this.currentPath = this.$route.path
       }
     }
   }
@@ -60,9 +68,12 @@
 
       .link {
         margin-top: 30px;
+        &.active{
+          color: coral;
+        }
 
         &:hover {
-          color: #000;
+          color: coral;
           text-decoration: none;
         }
       }
