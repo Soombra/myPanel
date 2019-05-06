@@ -113,6 +113,9 @@
 
         .right {
           width: 90%;
+          img{
+            display: block;
+          }
         }
         .tag, .add-tag, .clear-tag{
           padding: 3px 7px;

@@ -111,7 +111,7 @@
       createArticle () {
         travel.createArticle ({...this.article, tags: this.tags}).then (() => {
           console.log('成功回调')
-          this.$router.push ('/front-end-list')
+          this.$router.push ('/travel-list')
         }).catch (err => {
           console.log (err)
         })
