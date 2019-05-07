@@ -13,7 +13,6 @@ const controllers = {
           console.log (err)
           return
         }
-        console.log (user)
         if (user) {
           let payload = {
             username,
