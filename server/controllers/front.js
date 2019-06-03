@@ -67,7 +67,7 @@ const controllers = {
         console.log(err)
         res.status(400).send('Bad Request')
       }
-      res.status(204).send('修改成功:' + docs)
+      res.status(204).send('删除成功:' + docs)
     })
   },
   publishArticle (req, res, next) {

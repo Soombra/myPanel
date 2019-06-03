@@ -6,6 +6,7 @@ import essayArticle from '../pages/essay/article'
 import fontEndList from '../pages/front-end/list'
 import travelList from '../pages/travel/list'
 import essayList from '../pages/essay/list'
+import footprintList from '../pages/footprint/list'
 import login from '../pages/login'
 import index from '../pages/index'
 
@@ -21,6 +22,11 @@ export default new Router ({
       {
         path: '',
         component: fontEndList
+      },
+      {
+        path: '/footprint-list',
+        name: 'footprint-list',
+        component: footprintList
       },
       {
         path: '/front-end-list',

@@ -16,13 +16,17 @@
         currentPath: '',
         links: [
           {
-            name: '前端',
+            name: '足迹列表',
+            url: '/footprint-list'
+          },
+          {
+            name: '前端列表',
             url: '/front-end-list'
           }, {
-            name: '游记',
+            name: '游记列表',
             url: '/travel-list'
           }, {
-            name: '随笔',
+            name: '随笔列表',
             url: '/essay-list'
           }
         ]

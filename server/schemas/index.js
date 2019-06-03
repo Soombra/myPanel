@@ -21,7 +21,14 @@ const userSchema = mongoose.Schema({
   password: String
 })
 
+const footprintSchema = mongoose.Schema({
+  name: String,
+  date: Date,
+  value: Array,
+}, {timestamps: { createdAt: 'date_created', updatedAt: 'date_updated' }})
+
 module.exports = {
   articleSchema,
-  userSchema
+  userSchema,
+  footprintSchema
 }

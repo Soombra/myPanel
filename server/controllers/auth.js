@@ -68,22 +68,9 @@ const controllers = {
     if (token) {
       jwt.verify (token, token_secret, (err, decoded) => {
         if (err) {
-          console.log (err)
           return
         }
         if (decoded && decoded.username) {
-          // userModel.findOne ({username: decoded.username}, (err, user) => {
-          //   if (err) {
-          //     console.log (err)
-          //     return
-          //   }
-          //   if (user) {
-          //     next ()
-          //   } else {
-          //     res.clearCookie ('token')
-          //     res.status (403).send ('未找到用户')
-          //   }
-          // })
           next ()
         } else {
           res.clearCookie ('token')

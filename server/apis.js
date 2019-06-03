@@ -2,6 +2,7 @@ const authController = require ('./controllers/auth')
 const frontController = require ('./controllers/front')
 const travelController = require ('./controllers/travel')
 const essayController = require ('./controllers/essay')
+const homeController = require ('./controllers/home')
 const apis = function (app) {
   app.get ('/get_qiniu_token', authController.checkAuth, authController.getQiniuToken)
   app.post('/login', authController.login)
@@ -29,5 +30,8 @@ const apis = function (app) {
   app.put ('/essay/article/:id/publish', authController.checkAuth, essayController.publishArticle)
   app.put ('/essay/article/:id/unpublish', authController.checkAuth, essayController.unpublishArticle)
 
+  app.post('/footprint', authController.checkAuth, homeController.createFootprint)
+  app.get('/footprints', authController.checkAuth, homeController.queryFootprints)
+  app.delete ('/footprint/:id', authController.checkAuth, homeController.deleteFootprint)
 }
 module.exports = apis

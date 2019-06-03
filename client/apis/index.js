@@ -2,7 +2,7 @@ import request from '../request'
 
 export const frontEnd = {
   createArticle (params) {
-    return request.post ('/front-end/article', params)
+    return request.post('/front-end/article', params)
   },
   queryArticles (params) {
     return request.get('/front-end/articles', {params})
@@ -25,7 +25,7 @@ export const frontEnd = {
 }
 export const travel = {
   createArticle (params) {
-    return request.post ('/travel/article', params)
+    return request.post('/travel/article', params)
   },
   queryArticles (params) {
     return request.get('/travel/articles', {params})
@@ -48,7 +48,7 @@ export const travel = {
 }
 export const essay = {
   createArticle (params) {
-    return request.post ('/essay/article', params)
+    return request.post('/essay/article', params)
   },
   queryArticles (params) {
     return request.get('/essay/articles', {params})
@@ -69,9 +69,21 @@ export const essay = {
     return request.delete(`/essay/article/${id}`)
   }
 }
+export const home = {
+  createFootprint (params) {
+    return request.post('/footprint', params)
+  },
+  queryFootprints (params) {
+    return request.get('/footprints', {params})
+  },
+  deleteFootprint (id) {
+    return request.delete(`/footprint/${id}`)
+  },
+}
 
 export default {
   frontEnd,
   travel,
-  essay
+  essay,
+  home
 }

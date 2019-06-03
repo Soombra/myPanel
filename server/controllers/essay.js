@@ -13,7 +13,6 @@ const controllers = {
       console.log(e)
       res.status(500).send('出了点错误')
     }
-
   },
   createArticle (req, res, next) {
     const {body: {title, abstract, content, image, tags}} = req
@@ -67,7 +66,7 @@ const controllers = {
         console.log(err)
         res.status(400).send('Bad Request')
       }
-      res.status(204).send('修改成功:' + docs)
+      res.status(204).send('删除成功:' + docs)
     })
   },
   publishArticle (req, res, next) {
