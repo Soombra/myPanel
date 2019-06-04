@@ -21,7 +21,7 @@ const controllers = {
       axios.get(`http://api.map.baidu.com/place/v2/search?query=${encodeURI(name)}&region=${encodeURI(city)}&city_limit=${encodeURI(city)}&output=json&ak=kNZgnH8dtsRDqktE9MYxAaItB3HyYG94`).then(({data = {}}) => {
         if(data.status === 0) {
           const {results} = data
-          let footprint = new footprintModel({name, date, value: [results[0].location.lat, results[0].location.lng]})
+          let footprint = new footprintModel({name, date, value: [results[0].location.lng, results[0].location.lat]})
           footprint.save(function (err, footprint) {
             if (err) {
               console.log(err)
