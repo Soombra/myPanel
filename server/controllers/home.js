@@ -19,11 +19,9 @@ const controllers = {
     const {body: {name, city, date}} = req
     if (name && city && date) {
       axios.get(`http://api.map.baidu.com/place/v2/search?query=${encodeURI(name)}&region=${encodeURI(city)}&city_limit=${encodeURI(city)}&output=json&ak=kNZgnH8dtsRDqktE9MYxAaItB3HyYG94`).then(({data = {}}) => {
-        console.log('请求成功', data)
-        const {location = {}} = data
-        if (location) {
-          let footprint = new footprintModel({name, date, value: [location.lat, location.lng]})
-          // let footprint = new footprintModel({name, date, value: [91.12082391546393, 29.65004027476773]})
+        if(data.status === 0) {
+          const {results} = data
+          let footprint = new footprintModel({name, date, value: [results[0].location.lat, results[0].location.lng]})
           footprint.save(function (err, footprint) {
             if (err) {
               console.log(err)
@@ -32,9 +30,11 @@ const controllers = {
               res.status(201).send(footprint)
             }
           })
+        } else {
+          res.status(500).send('百度请求出错');
         }
       }).catch(err => {
-        console.log('百度请求失败', err)
+        res.status(500).send('百度请求出错');
       })
     } else {
       res.status(400).send('Bad Request');
