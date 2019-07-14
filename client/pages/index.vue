@@ -119,6 +119,7 @@
           width: 90%;
           img{
             display: block;
+            width: 100%;
           }
         }
         .tag, .add-tag, .clear-tag{
